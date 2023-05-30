@@ -1,0 +1,1228 @@
+root@temp-VMware:~/바탕화면# cd
+root@temp-VMware:~# apt-get -y install xinetd telne
+패키지 목록을 읽는 중입니다... 완료
+의존성 트리를 만드는 중입니다... 완료
+상태 정보를 읽는 중입니다... 완료        
+E: telne 패키지를 찾을 수 없습니다
+root@temp-VMware:~# apt-get -y install xinetd telnet
+패키지 목록을 읽는 중입니다... 완료
+의존성 트리를 만드는 중입니다... 완료
+상태 정보를 읽는 중입니다... 완료        
+패키지 telnet는 이미 최신 버전입니다 (0.17-44build1).
+telnet 패키지는 수동설치로 지정합니다.
+다음 새 패키지를 설치할 것입니다:
+  xinetd
+0개 업그레이드, 1개 새로 설치, 0개 제거 및 0개 업그레이드 안 함.
+108 k바이트 아카이브를 받아야 합니다.
+이 작업 후 310 k바이트의 디스크 공간을 더 사용하게 됩니다.
+받기:1 http://mirror.kakao.com/ubuntu bionic/universe amd64 xinetd amd64 1:2.3.15.3-1 [108 kB]
+내려받기 108 k바이트, 소요시간 0초 (669 k바이트/초)
+Selecting previously unselected package xinetd.
+(데이터베이스 읽는중 ...현재 202172개의 파일과 디렉터리가 설치되어 있습니다.)
+Preparing to unpack .../xinetd_1%3a2.3.15.3-1_amd64.deb ...
+Unpacking xinetd (1:2.3.15.3-1) ...
+xinetd (1:2.3.15.3-1) 설정하는 중입니다 ...
+Processing triggers for man-db (2.10.2-1) ...
+root@temp-VMware:~# cd /etc/xinetd.d 
+root@temp-VMware:/etc/xinetd.d# nano telnet
+root@temp-VMware:/etc/xinetd.d# cd
+root@temp-VMware:~# adduser teluser
+'teluser' 사용자를 추가 중...
+새 그룹 'teluser' (1003) 추가 ...
+새 사용자 'teluser' (1006) 을(를) 그룹 'teluser' (으)로 추가 ...
+'/home/teluser' 홈 디렉터리를 생성하는 중...
+'/etc/skel'에서 파일들을 복사하는 중...
+새 암호: 
+잘못된 비밀번호: 암호는 8 개의 문자 보다 짧습니다
+새 암호 재입력: 
+passwd: 암호를 성공적으로 업데이트했습니다
+teluser의 사용자의 정보를 바꿉니다
+새로운 값을 넣거나, 기본값을 원하시면 엔터를 치세요
+	이름 []: 
+	방 번호 []: 
+	직장 전화번호 []: 
+	집 전화번호 []: 
+	기타 []: 
+정보가 올바릅니까? [Y/n] 
+root@temp-VMware:~# 
+root@temp-VMware:~# y
+y: 명령을 찾을 수 없습니다
+root@temp-VMware:~# systemctl restart xinetd
+root@temp-VMware:~# systemctl status xinetd
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 2min 11s ago
+       Docs: man:systemd-sysv-generator(8)
+    Process: 3144 ExecStart=/etc/init.d/xinetd start (code=exited, status=0/SUC>
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd>
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not e>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DIS>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadav>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+root@temp-VMware:~# ufw allow 23/tcp
+규칙이 추가되었습니다
+규칙이 추가되었습니다 (v6)
+root@temp-VMware:~# ifconfig ens 32
+SIOCSIFADDR: 그런 장치가 없음
+ens: ERROR while getting interface flags: 그런 장치가 없음
+root@temp-VMware:~# ifconfig ens32
+ens32: error fetching interface information: Device not found
+root@temp-VMware:~# ifconfig
+ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.192.129  netmask 255.255.255.0  broadcast 192.168.192.255
+        inet6 fe80::8f86:d892:9ca5:7969  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:85:dd:2e  txqueuelen 1000  (Ethernet)
+        RX packets 19941  bytes 29037231 (29.0 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4245  bytes 332885 (332.8 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 243  bytes 23577 (23.5 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 243  bytes 23577 (23.5 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+root@temp-VMware:~# systemctl enable xinetd
+xinetd.service is not a native service, redirecting to systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable xinetd
+root@temp-VMware:~# systemctl status xinetd
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd>
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not e>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DIS>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file:>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadav>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_>
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not ex>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISA>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_co>
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /e>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /e>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /e>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not exec>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABL>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /e>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /e>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg l>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat ->
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SE>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/ser>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/ser>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/tel>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/e>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [fi>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/tim>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/tim>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networki>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/et>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/x>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/teln>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compi>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/x>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xi>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telne>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xine>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compil>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xi>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/x>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/t>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinet>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/x>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compile>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xi>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xine>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet]>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/te>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xi>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinet>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xine>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/teln>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xine>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled i>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [li>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/t>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/se>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/s>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/tel>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [l>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time]>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/t>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/servic>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [lin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-u>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [l>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [lin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] >
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [lin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [l>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [l>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [line>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [li>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=1>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [li>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [line=>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [lin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [lin>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [line=14]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [line=1>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [line=2>
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [line=14]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [line=28]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [line=14]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [line=28]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+lines 1-20/20 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 3min 10s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [line=14]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [line=28]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+~
+~
+~
+root@temp-VMware:~# cd /etc/xinetd.d 
+root@temp-VMware:/etc/xinetd.d# nano telnet
+root@temp-VMware:/etc/xinetd.d# cd
+root@temp-VMware:~# dpkg -l telnetd
+dpkg-query: telnetd와 일치하는 패키지를 찾지 못했습니다
+root@temp-VMware:~# dpkg -l telnetd
+dpkg-query: telnetd와 일치하는 패키지를 찾지 못했습니다
+root@temp-VMware:~# cd /etc/xinetd.d 
+root@temp-VMware:/etc/xinetd.d# ls
+chargen  chargen-udp  daytime  daytime-udp  discard  discard-udp  echo  echo-udp  servers  services  telnet  time  time-udp
+root@temp-VMware:/etc/xinetd.d# ls -l
+합계 52
+-rw-r--r-- 1 root root 640  2월  6  2018 chargen
+-rw-r--r-- 1 root root 313  2월  6  2018 chargen-udp
+-rw-r--r-- 1 root root 502  2월  6  2018 daytime
+-rw-r--r-- 1 root root 313  2월  6  2018 daytime-udp
+-rw-r--r-- 1 root root 391  2월  6  2018 discard
+-rw-r--r-- 1 root root 312  2월  6  2018 discard-udp
+-rw-r--r-- 1 root root 422  2월  6  2018 echo
+-rw-r--r-- 1 root root 304  2월  6  2018 echo-udp
+-rw-r--r-- 1 root root 312  2월  6  2018 servers
+-rw-r--r-- 1 root root 314  2월  6  2018 services
+-rw-r--r-- 1 root root 151  5월 30 09:28 telnet
+-rw-r--r-- 1 root root 569  2월  6  2018 time
+-rw-r--r-- 1 root root 313  2월  6  2018 time-udp
+root@temp-VMware:/etc/xinetd.d# systemctl status xinetd
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:39:43 KST; 7min ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 484.0K
+        CPU: 85ms
+     CGroup: /system.slice/xinetd.service
+             └─3155 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [line=14]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=13]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Server /usr/sbin/in.telnetd is not executable [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Error parsing attribute server - DISABLING SERVICE [file=/etc/xinetd.d/telnet] [line=8]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [line=28]
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: removing telnet
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:39:43 temp-VMware xinetd[3155]: Started working: 0 available services
+root@temp-VMware:/etc/xinetd.d# nano telnet
+root@temp-VMware:/etc/xinetd.d# dpkg -l telnetd
+dpkg-query: telnetd와 일치하는 패키지를 찾지 못했습니다
+root@temp-VMware:/etc/xinetd.d# apt-get -y install xinetd telnetd
+패키지 목록을 읽는 중입니다... 완료
+의존성 트리를 만드는 중입니다... 완료
+상태 정보를 읽는 중입니다... 완료        
+패키지 xinetd는 이미 최신 버전입니다 (1:2.3.15.3-1).
+다음 새 패키지를 설치할 것입니다:
+  telnetd
+0개 업그레이드, 1개 새로 설치, 0개 제거 및 0개 업그레이드 안 함.
+39.3 k바이트 아카이브를 받아야 합니다.
+이 작업 후 110 k바이트의 디스크 공간을 더 사용하게 됩니다.
+받기:1 http://mirror.kakao.com/ubuntu bionic/universe amd64 telnetd amd64 0.17-41 [39.3 kB]
+내려받기 39.3 k바이트, 소요시간 0초 (162 k바이트/초)
+Selecting previously unselected package telnetd.
+(데이터베이스 읽는중 ...현재 202210개의 파일과 디렉터리가 설치되어 있습니다.)
+Preparing to unpack .../telnetd_0.17-41_amd64.deb ...
+Unpacking telnetd (0.17-41) ...
+telnetd (0.17-41) 설정하는 중입니다 ...
+사용자 telnetd을(를) utmp 그룹에 등록 중
+Note: xinetd currently is not fully supported by update-inetd.
+Please consult /usr/share/doc/xinetd/README.Debian and itox(8).
+update-inetd: warning: cannot add service, /etc/inetd.conf does not exist
+Processing triggers for man-db (2.10.2-1) ...
+root@temp-VMware:/etc/xinetd.d# systemctl restart xinetd
+root@temp-VMware:/etc/xinetd.d# systemctl enable xinetd
+xinetd.service is not a native service, redirecting to systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable xinetd
+root@temp-VMware:/etc/xinetd.d# systemctl status xinetd
+● xinetd.service - LSB: Starts or stops the xinetd daemon.
+     Loaded: loaded (/etc/init.d/xinetd; generated)
+     Active: active (running) since Tue 2023-05-30 09:51:48 KST; 27s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 1 (limit: 4573)
+     Memory: 488.0K
+        CPU: 67ms
+     CGroup: /system.slice/xinetd.service
+             └─3590 /usr/sbin/xinetd -pidfile /run/xinetd.pid -stayalive -inetd_compat -inetd_ipv6
+
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Reading included configuration file: /etc/xinetd.d/discard-udp [file=/etc/xinetd.d/discard-udp] [line>
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Reading included configuration file: /etc/xinetd.d/echo [file=/etc/xinetd.d/echo] [line=14]
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Reading included configuration file: /etc/xinetd.d/echo-udp [file=/etc/xinetd.d/echo-udp] [line=26]
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Reading included configuration file: /etc/xinetd.d/servers [file=/etc/xinetd.d/servers] [line=14]
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Reading included configuration file: /etc/xinetd.d/services [file=/etc/xinetd.d/services] [line=13]
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Reading included configuration file: /etc/xinetd.d/telnet [file=/etc/xinetd.d/telnet] [line=13]
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Reading included configuration file: /etc/xinetd.d/time [file=/etc/xinetd.d/time] [line=10]
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Reading included configuration file: /etc/xinetd.d/time-udp [file=/etc/xinetd.d/time-udp] [line=28]
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: 2.3.15.3 started with libwrap loadavg labeled-networking options compiled in.
+ 5월 30 09:51:48 temp-VMware xinetd[3590]: Started working: 1 available service
+root@temp-VMware:/etc/xinetd.d# 
